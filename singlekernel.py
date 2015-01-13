@@ -49,8 +49,8 @@ def main():
     tornado.options.define('base_path', default='/',
             help="Base path for the server (e.g. /singlecell)"
     )
-    tornado.options.define('port', default=8000,
-            help="Port to serve on, defaults to 8000"
+    tornado.options.define('port', default=8888,
+            help="Port to serve on, defaults to 8888"
     )
 
     tornado.options.parse_command_line()

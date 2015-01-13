@@ -1,4 +1,4 @@
-FROM ipython/ipython
+FROM ipython/scipystack
 
 ADD singlekernel.py /srv/
 
