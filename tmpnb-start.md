@@ -35,7 +35,7 @@ docker run -d --net=host --name=tmpnb -e CONFIGPROXY_AUTH_TOKEN=$TOKEN \
    -v /var/run/docker.sock:/docker.sock \
    jupyter/tmpnb \
    python orchestrate.py --container_ip=$CONTAINER_IP --image="odewahn/kernels-service" \
-   --command="python /srv/singlekernel.py --base_path='{base_path}'" --pool_size=5 --redirect-uri="/"
+   --command="python /srv/kernels.py --base_path='{base_path}'" --pool_size=5 --redirect-uri="/"
 
 
 #
