@@ -1,12 +1,13 @@
 # kernels-service
 
-Launch a Jupyter kernels over HTTP. Provides only the kernels and kernelspecs APIs of IPython/Jupyter.
+Launch Jupyter kernels over HTTP. Provides only the kernels and kernelspecs APIs of IPython/Jupyter.
 
 ### Direct launch
 
-singlekernel.py starts a tornado web server that launches a kernel
+kernels.py starts a tornado web server that launches a single kernel and provides the ability to launch more.
 
-Here we set the base path of the IPython API to start at `/minipython/`:
+Here we set the base path of the IPython API to start at `/jupyter/`:
+
 
 ```console
 $ python singlekernel.py --base-path=minipython
@@ -25,9 +26,9 @@ Several environment variables are available for configuration:
 
 Environment Variable | Description
 ---------------------|----------------------------------------------------------------------------------------------------------
-`KERNEL_NAME`        | The name of the kernel (language type) to use, defaults to system python (could be 'ir' for the R Kernel)
+`KERNEL_NAME`        | The name of the initial kernel (language type) to use, defaults to system python (could be 'ir' for the R Kernel)
 
-Derivative images of `rgbkrk/single-jupyter-kernel` that install kernels like IJulia or the IRKernel need only define these in their Dockerfiles.
+Derivative images of `rgbkrk/kernels` that install kernels like IJulia or the IRKernel need only define these in their Dockerfiles. :warning: Depending on your usage, you may want to include a non-root user in the Docker image that runs the service itself. :warning:
 
 Options for base path and port are provided via command line arguments (like the tmpnb demo image). If used directly, they must be done with `sh -c` explicitly:
 
@@ -70,3 +71,5 @@ k.execute('import os; os.mkdir("touchdown")');
 ```
 
 In reality, I want to be able to use the kernel *without* a notebook.
+
+The reason is that events are propagated to a notebook model in the JavaScript.
