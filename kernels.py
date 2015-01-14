@@ -48,7 +48,7 @@ class IndexHandler(web.RequestHandler):
 
     def get(self):
         self.add_header("Content-Type", "text/plain")
-        self.write(json_encode({'status': 'ok', 'uri': self.base_path}))
+        self.write(json_encode({'status': 'ok', 'base_path': self.base_path}))
 
 
 class WebApp(web.Application):
