@@ -28,7 +28,9 @@ from IPython.html.services.kernels.kernelmanager import MappingKernelManager
 from IPython.html.services.kernels.handlers import default_handlers as kernels_handlers
 from IPython.html.services.kernelspecs.handlers import default_handlers as kernelspecs_handlers
 
+
 default_handlers = kernels_handlers + kernelspecs_handlers
+
         
 def fix_base_path(base_path):
     if not base_path.startswith('/'):
@@ -37,15 +39,28 @@ def fix_base_path(base_path):
         base_path = base_path + '/'
     return base_path
 
+
+class IndexHandler(web.RequestHandler):
+
+    def initialize(self, base_path):
+        self.base_path = base_path
+
+    def get(self):
+        self.add_header("Content-Type", "text/plain")
+        self.write(json_encode({'status': 'ok', 'url': self.base_path}))
+
+
 class WebApp(web.Application):
     def __init__(self, kernel_manager, settings):
         base_path = settings['base_path']
 
         handlers = [ tuple([url_path_join(base_path, handler[0])] + list(handler[1:]))  for handler in default_handlers ]
+        handlers.append((r"/base", self.IndexHandler))
 
         super(WebApp, self).__init__(handlers, **settings)
 
 def main():
+
     tornado.options.define('base_path', default='/',
             help="Base path for the server (e.g. /singlecell)"
     )
