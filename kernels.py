@@ -19,6 +19,7 @@ import tornado
 import tornado.options
 from tornado import httpserver
 from tornado import web
+from tornado.escape import json_encode
 
 from tornado.log import app_log
 
@@ -47,7 +48,7 @@ class IndexHandler(web.RequestHandler):
 
     def get(self):
         self.add_header("Content-Type", "text/plain")
-        self.write(json_encode({'status': 'ok', 'url': self.base_path}))
+        self.write(json_encode({'status': 'ok', 'uri': self.base_path}))
 
 
 class WebApp(web.Application):
@@ -55,7 +56,7 @@ class WebApp(web.Application):
         base_path = settings['base_path']
 
         handlers = [ tuple([url_path_join(base_path, handler[0])] + list(handler[1:]))  for handler in default_handlers ]
-        handlers.append((r"/base", self.IndexHandler))
+        handlers.append((r"%s" % base_path, IndexHandler, {"base_path": base_path}))
 
         super(WebApp, self).__init__(handlers, **settings)
 

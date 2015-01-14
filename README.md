@@ -6,11 +6,11 @@ Launch Jupyter kernels over HTTP. Provides only the kernels and kernelspecs APIs
 
 kernels.py starts a tornado web server that launches a single kernel and provides the ability to launch more.
 
-Here we set the base path of the IPython API to start at `/jupyter/`:
+Here we set the base path of the IPython API to start at `/minipython/`:
 
 
 ```console
-$ python singlekernel.py --base-path=minipython
+$ python kernels.py --base-path=minipython
 [I 150110 14:23:45 kernelmanager:85] Kernel started: 69f7a0bf-7900-49be-bcab-05acece7d2d5
 [I 150110 14:23:45 singlekernel:98] Serving at http://127.0.0.1:8888/minipython/api/kernels/69f7a0bf-7900-49be-bcab-05acece7d2d5
 [I 150110 14:23:58 web:1811] 200 GET /minipython/api/kernels/69f7a0bf-7900-49be-bcab-05acece7d2d5 (127.0.0.1) 29.48ms
