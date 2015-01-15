@@ -47,7 +47,7 @@ class IndexHandler(web.RequestHandler):
         self.base_path = base_path
 
     def get(self):
-        self.add_header("Content-Type", "text/plain")
+        self.add_header("Access-Control-Allow-Origin", "*")
         self.write(json_encode({'status': 'ok', 'base_path': self.base_path}))
 
 
